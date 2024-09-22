@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    {% if page.hero_block %}
+        {{page.hero_block}}
+    {% endif %}
+
+    {% if page.whyproject %}
+
+        {% with whyproject=page.whyproject %}
+            
+    
+            <section class="about-low-area section-padding2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-10">
+                            <div class="about-caption mb-50">
+                                <!-- Section Tittle -->
+                                <div class="section-tittle mb-35">
+                                    <span>{{whyproject.block_title}}</span>
+                                    <h2>{{whyproject.title}} </h2>
+                                </div>
+                                {{whyproject.content}}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            {{whyproject.images}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+        
+        {% endwith %}
+    {% endif %}
+
+    {% if page.our_services %}
+        
+        
+        {% for block in page.our_services.services %}
+            {% include_block block %}
+        {% endfor %}
+
+    {% endif %}
+
+    {% if page.donations_funds_and_scholars %}
+        {% for block in page.donations_funds_and_scholars.block %}
+            {% include_block block %}
+        {% endfor %}   
+    {% endif %}
+    
+{% endblock content %}

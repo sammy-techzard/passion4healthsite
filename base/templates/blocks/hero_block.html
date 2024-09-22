@@ -1,0 +1,43 @@
+{% load wagtailimages_tags %}
+
+{% image self.bg_img  min-500x200 as tmp_photo %}
+<!-- slider Area Start-->
+<div class="slider-area" style="background-image: url({{ tmp_photo }}) !important;">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
+                        <div class="hero__caption">
+                            <h1 data-animation="fadeInUp" data-delay=".6s">
+                                {{self.hero_text}}
+                            </h1>
+                            <P data-animation="fadeInUp" data-delay=".8s">
+                                {{self.sub_text}}
+                            </P>
+                            <!-- Hero-btn -->
+                             
+                            <div class="hero__btn">
+                                {% for button in self.cta_buttons %}
+                                    {% if button.button_color == "primary" %}
+                                        <a href="{{ button.button_link.url }}"class="btn hero-btn mb-10" data-animation="fadeInLeft" data-delay=".8s">
+                                            {{button.button_text}}
+                                        </a>
+                                    {% else  %}
+                                        <a  href="{{ button.button_link.url }}"class="cal-btn ml-15" style="color: inherit;" data-animation="fadeInRight" data-delay="1.0s">
+                                            <p>
+                                                {{button.button_text}}
+                                            </p>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- slider Area End-->

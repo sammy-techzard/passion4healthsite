@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    {{page.hero_block}}
+    {% if page.our_services %}
+        
+        <!-- Looping through the StreamField blocks in the OurService snippet -->
+        {% for block in page.our_services.services %}
+            {% include_block block %}
+        {% endfor %}
+
+    {% endif %}
+
+    {% comment %} Why project block {% endcomment %}
+    {% if page.whyproject %}
+
+        {% with whyproject=page.whyproject %}
+            
+    
+            <section class="about-low-area section-padding2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-10">
+                            <div class="about-caption mb-50">
+                                <!-- Section Tittle -->
+                                <div class="section-tittle mb-35">
+                                    <span>{{whyproject.block_title}}</span>
+                                    <h2>{{whyproject.title}} </h2>
+                                </div>
+                                {{whyproject.content}}
+                            </div>
+                            {% if whyproject.more_about_us %} 
+                                <a href="{{ whyproject.more_about_us.url }} " class="btn">About US</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            {{whyproject.images}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+        
+        {% endwith %}
+
+
+
+
+
+
+    {% endif %}
+
+
+
+    {% comment %} Adding our team block {% endcomment %}
+    {% if page.ourteam %}
+        
+        <!-- Looping through the StreamField blocks in the OurService snippet -->
+        {% for block in page.ourteam.our_team %}
+            {% include_block block %}
+        {% endfor %}
+
+    {% endif %}
+    
+    {% if page.call_for_volunteer %}
+        {% for block in page.call_for_volunteer.theblock %}
+            {% include_block block %}
+        {% endfor %}   
+    {% endif %}
+
+    
+
+    
+    
+    {% with articles=blog_articles %}
+            <!--? Blog Area Start -->
+            {% if articles %}
+                <section class="home-blog-area section-padding30">
+                    <div class="container">
+                        <!-- Section Tittle -->
+                        <div class="row justify-content-center">
+                            <div class="col-xl-5 col-lg-6 col-md-9 col-sm-10">
+                                <div class="section-tittle text-center mb-90">
+                                    <span>Our recent blog</span>
+                                    <h2>Latest News from our recent blog</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for blogarticle in articles %}
+                                <div class="col-xl-6 col-lg-6 col-md-6">
+                                    <div class="home-blog-single mb-30">
+                                        <div class="blog-img-cap">
+                                            <div class="blog-img blog-img-cust">
+                                                {% image blogarticle.main_image original as main_image %}
+                                                <img src="{{main_image.url}}" alt="">
+                                                <!-- Blog date -->
+                                                <div class="blog-date text-center">
+                                                    <span>{{blogarticle.date.day}}</span>
+                                                    <p>{{blogarticle.date|date:"b"}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="blog-cap">
+                                                <p>
+                                                    {% if blogarticle.tags.all %}
+                                                        {{ blogarticle.tags.all.0.name }}
+                                                    {% endif %}
+                                                </p>
+                                                <h3><a href="{{ blogarticle.url }} ">{{blogarticle.title|truncatechars:60}}</a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                        <div class="row justify-content-right">
+                            <div class="col-sm-12">
+                                <a href="/blog/" class="btn header-btn">More Stories</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+            <!-- Blog Area End -->
+    {% endwith %}
+
+    {% comment %} donation, funds and scholars section {% endcomment %}
+    {% if page.donations_funds_and_scholars %}
+        {% for block in page.donations_funds_and_scholars.block %}
+            {% include_block block %}
+        {% endfor %}   
+    {% endif %}
+    
+
+
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+<!-- about-img -->
+<div class="about-img ">
+    <div class="about-font-img d-none d-lg-block">
+        {% image self.image_2 width-500 %}
+    </div>
+    <div class="about-back-img ">
+        {% image self.image_1 width-500 %}
+    </div>
+</div>

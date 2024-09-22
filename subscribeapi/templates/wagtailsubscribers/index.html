@@ -1,0 +1,44 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}Email Subscribers{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        table.month {
+            margin: 20px;
+        }
+        table.month td, table.month th {
+            padding: 5px;
+        }
+        table.th {
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Email Subscribers" icon="mail" %}
+
+    <div class="nice-padding">
+        <table border="1" style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Email</th>
+                    <th style="text-align: left;">Subscribed At</th>
+                </tr>
+            </thead>
+            <tbody style="padding-top: 40px">
+                {% for subscriber in subscribers %}
+                    <tr style="height: 40px">
+                        <td>{{ subscriber.email }}</td>
+                        <td>{{ subscriber.subscribed_at }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No subscribers found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+# wagtail_hooks.py
+from wagtail import hooks
+from wagtail.admin.menu import MenuItem
+from django.urls import path
+from django.utils.translation import gettext_lazy as _
+from wagtail.admin import urls as wagtailadmin_urls
+from django.http import HttpResponse
+
+@hooks.register('register_admin_menu_item')
+def register_contact_form_menu_item():
+    return MenuItem(
+        _('Contact Form Submissions'),
+        '/admin/contact-form-submissions/',
+        classnames='icon icon-mail',
+        order=1000
+    )
+
+@hooks.register('register_admin_urls')
+def register_admin_urls():
+    return [
+        path('contact-form-submissions/', view_contact_form_submissions, name='contact_form_submissions'),
+    ]
+
+def view_contact_form_submissions(request):
+    # Handle the display and management of contact form submissions here
+    return HttpResponse("This is where you would list and manage contact form submissions.")

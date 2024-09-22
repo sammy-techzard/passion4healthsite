@@ -1,0 +1,62 @@
+{% load wagtailimages_tags %}
+{% load svg_tags %}
+<!--? Services Area Start -->
+<div class="service-area section-padding30">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-10 col-sm-10">
+                <!-- Section Tittle -->
+                <div class="section-tittle text-center mb-80">
+                    <span>
+                        {% if self.snippet_title  %}
+                            {{self.snippet_title}}
+                        {% endif %}
+                    </span>
+                    <h2>
+                        {% if self.snippet_description  %}
+                            {{self.snippet_description}}
+                        {% endif %}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if self.services %}
+                {% with total_services=services|length %}
+
+
+                    {% for service in self.services %}
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-cat text-center mb-50 
+                                {% if forloop.counter|divisibleby:2%} 
+                                    active
+                                {% endif %}
+                                ">
+                                <div class="cat-icon">
+                                    <span class="service-icons-hl">
+                                        {% image service.icon_image width-400 as tmp_photo %}
+                                        {% if tmp_photo.url|slice:"-3:" == "svg"  %}
+                                            {{tmp_photo|inline_svg  }}
+                                        {% else %}
+                                            <img src="{{tmp_photo.url }}" alt="">
+                                        {% endif %}
+                                        
+
+                                    </span>
+                                </div>
+                                <div class="cat-cap">
+                                    <h5><a>{{service.name}}</a></h5>
+                                    <p>
+                                        {{service.short_description}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+            {% endif %}
+            
+            
+        </div>
+    </div>
+</div>
+<!-- Services Area End -->

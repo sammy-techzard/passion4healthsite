@@ -1,0 +1,15 @@
+from django.urls import path, reverse
+from wagtail import hooks
+from wagtail.admin.menu import MenuItem
+
+from .views import adminindex
+
+
+@hooks.register('register_admin_urls')
+def register_subscriber_url():
+    return [
+        path('emailsubscribers/', adminindex, name='subscribers'),
+    ]
+@hooks.register('register_admin_menu_item')
+def register_subscriber_menu_item():
+    return MenuItem('Subscribers', reverse('subscribers'), icon_name='group')

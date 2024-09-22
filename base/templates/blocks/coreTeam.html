@@ -1,0 +1,46 @@
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+<!--? Team Ara Start -->
+<div class="team-area pt-160 pb-160">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-10 col-sm-10">
+                <!-- Section Tittle -->
+                <div class="section-tittle section-tittle2 text-center mb-70">
+                    <span>{{self.block_title}}</span>
+                    <h2>{{self.title}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            {% for member in self.members %}
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-team mb-30">
+                        <div class="team-img" style="    aspect-ratio: 1;">
+                            {% image member.picture width-450 height-500  as memberpicture %}
+                            <img src="{{memberpicture.url}}" alt="{{memberpicture.title}}">
+                            <!-- Blog Social -->
+                            <ul class="team-social">
+                                
+                                <li><a href="mailto:{{member.email}}"><i class="fas fa-envelope"></i></a></li>
+                                <li><a href="tel:{{member.phone}}"><i class="fas fa-phone"></i></a></li>
+                                {% if member.linkedIn %}
+                                    <li><a href="{{member.linkedIn}}"><i class="fab fa-linkedin"></i></a></li>
+                                {% endif %}
+                                
+                            </ul>
+                        </div>
+                        <div class="team-caption">
+                            <h4><a href="instructor.html">{{member.first_name}} </a></h4>
+                            <p>{{member.role}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            
+        </div>
+    </div>
+</div>
+<!-- Team Ara End -->

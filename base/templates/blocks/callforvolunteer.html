@@ -1,0 +1,20 @@
+{% load static wagtailimages_tags wagtailcore_tags %}
+<!-- Want To work -->
+ {% image self.background_image min-800x450 as background_image %}
+<section class="wantToWork-area ">
+    <div class="container">
+        <div class="wants-wrapper w-padding2  section-bg" data-background="{{background_image.url}}">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-5 col-lg-9 col-md-8">
+                    <div class="wantToWork-caption wantToWork-caption2">
+                        <h2>{{self.textshow}}</h2>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-4">
+                    <a href="{{self.action_page.url}}" class="btn white-btn f-right sm-left">Become A Volunteer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Want To work End -->

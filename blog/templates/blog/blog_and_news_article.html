@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% block content %}
+    {% comment %} <!--? Hero Start -->
+    <div class="slider-area2">
+        <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 pt-20 text-center">
+                    <h2>Blog Details</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Hero End --> {% endcomment %}
+    <!--? Blog Area Start -->
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+                    <div class="feature-img">
+                        {% image page.main_image original as main_image %}
+                        <img class="img-fluid" src="{{main_image.url}}" title="{{page.title}}">
+                    </div>
+                    <div class="blog_details">
+                        <h2 style="color: #2d2d2d;">{{page.title}}
+                        </h2>
+                        <ul class="blog-info-link mt-3 mb-4">
+                            {% for tag in page.tags.all %}
+                                <li><a ><i class="fa fa-tag"></i> {{tag}}</a></li>
+                            {% endfor %}
+                            <li><a href="#"><i class="fa fa-comments"></i> {{page.get_comment_count}} Comments</a></li>
+                        </ul>
+                        <p class="excert">
+                            {{page.intro}}
+                        </p>
+                        {{page.body|richtext}}
+                    </div>
+                </div>
+                <div class="navigation-top">
+                    <div class="d-sm-flex justify-content-between text-center">
+                        <p class="like-info">SHARE THIS ARTICLE</p>
+                        <div class="col-sm-4 text-center my-2 my-sm-0">
+                            <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                        </div>
+                        <ul class="social-icons">
+                            <!-- Facebook Share -->
+                            <li>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.full_url }}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            
+                            <!-- WhatsApp Share -->
+                            <li>
+                                <a href="https://api.whatsapp.com/send?text={{ page.full_url }}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </li>
+                            
+                            <!-- Twitter Share -->
+                            <li>
+                                <a href="https://twitter.com/intent/tweet?url={{ page.full_url }}&text=Check this out!" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            
+                            <!-- Email Share -->
+                            <li>
+                                <a href="mailto:?subject=Check out this article&body=Read this article here: {{ page.full_url }}" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-envelope"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navigation-area">
+                        <div class="row">
+                            {% with prevpost=page.get_previous_article nextpost=page.get_next_article %}
+                                {% if prevpost %}
+
+                                    <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                        <div class="thumb">
+                                            <a href="{{prevpost.url}}">
+                                                {% image prevpost.main_image original as previewing %}
+                                                <img class="img-fluid" src="{{ previewing.url }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="arrow">
+                                            <a href="{{prevpost.url}}">
+                                            <span class="lnr text-white ti-arrow-left"></span>
+                                            </a>
+                                        </div>
+
+                                        <div class="detials">
+                                            <p>Prev Post</p>
+                                            <a href="{{prevpost.url}}">
+                                            <h4 style="color: #2d2d2d;">
+                                                {{prevpost.title|truncatechars:60}}
+                                            </h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                        {% comment %} no prev button {% endcomment %}
+                                    </div>
+
+                                {% endif %}
+                                {% if nextpost %}
+                                
+                                    <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                        <div class="detials">
+                                            <p>Next Post</p>
+                                            <a href="{{nextpost.url}}">
+                                            <h4 style="color: #2d2d2d;">
+                                                {{nextpost.title|truncatechars:60}}
+                                            </h4>
+                                            </a>
+                                        </div>
+                                        <div class="arrow">
+                                            <a href="{{nextpost.url}}">
+                                            <span class="lnr text-white ti-arrow-right"></span>
+                                            </a>
+                                        </div>
+                                        <div class="thumb">
+                                            <a href="{{nextpost.url}}">
+                                                {% image nextpost.main_image original as previewing %}
+                                                <img class="img-fluid" src="{{ previewing.url }}" alt="">
+                                            </a>
+                                        </div>
+                                        
+
+                                        
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-author">
+                    {% with authors=page.authors.all %}
+                        {% if authors %}
+                            <div class="media align-items-center">
+                                {% for author in authors %}
+                                    {% image author.author_image original as author_image%}
+                                    <img src="{{author_image.url}}" alt="">
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <h4>{{author.name}}</h4>
+                                        </a>
+                                        
+                                    </div>
+                                {% endfor %}
+                            
+                                
+                            </div>
+                            <p>For more informationm, don't hestitate to reach us.</p>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="comments-area">
+                    <h4>{{page.get_comment_count}} Comments</h4>
+                    <div class="comment-list">
+                        {% for comment in page.get_comments %}
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <span class="user-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <div class="desc">
+                                        <p class="comment">
+                                        {{comment.comment_text}}
+                                        </p>
+                                        <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <h5>
+                                                <a href="mailto:{{comment.email}}">{{comment.name}}</a>
+                                            </h5>
+                                            <p class="date">{{comment.created_at}} </p>
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a style="display:none" href="#" class="btn-reply text-uppercase">reply</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+
+                    
+                </div>
+                <div class="comment-form">
+                    <h4>Leave a Reply</h4>
+                    <form class="form-contact comment_form" method="post" action="{% pageurl page %}" id="commentForm">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {{ form.comment_text|add_class:"form-control"|attr:"placeholder:Write Comment" }}
+                                    {% if form.comment_text.errors %}
+                                        <div class="form-error">
+                                            {% for error in form.comment_text.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ form.name|add_class:"form-control"|attr:"placeholder:Name" }}
+                                    <!-- Error handling -->
+                                    {% if form.name.errors %}
+                                        <div class="form-error">
+                                            {% for error in form.name.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ form.email|add_class:"form-control"|attr:"placeholder:Email" }}
+                                    {% if form.email.errors %}
+                                        <div class="form-error">
+                                            {% for error in form.email.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Hidden Parent Field for Replies (if applicable) -->
+                        {{ form.parent }}
+                        <div class="form-group">
+                            <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder='Search Keyword' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                                <div class="input-group-append">
+                                <button class="btns" type="button"><i class="ti-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Search</button>
+                    </form>
+                    </aside>
+                    <aside class="single_sidebar_widget post_category_widget">
+                    <h4 class="widget_title" style="color: #2d2d2d;">Category</h4>
+                    <ul class="list cat-list">
+                        {% for tag in page.get_all_tags %}
+                            {% if tag.tags__name %}
+                                <li>
+                                    <a href="/blog/?tag={{ tag.tags__name }}" class="d-flex">
+                                        <p>{{ tag.tags__name }}</p>
+                                        <p>({{ tag.tag_count }})</p>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    </aside>
+
+                    
+                    <aside class="single_sidebar_widget newsletter_widget">
+                        <h4 class="widget_title" style="color: #2d2d2d;">Newsletter</h4>
+                        <form action="{% url 'api_subscribe' %}" csrf="" class="subscribe-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input name="email" type="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                            </div>
+                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Subscribe</button>
+                        </form>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Blog Area End -->
+{% endblock content %}

@@ -1,0 +1,161 @@
+{% load static wagtailuserbar  %}
+{% load wagtailimages_tags navigation_tags wagtailcore_tags %}
+{% with website_name=settings.base.SiteSettings.site_name short_name=settings.base.SiteSettings.short_name org_name=settings.base.SiteSettings.org_name email=settings.base.SiteSettings.email telephone=settings.base.SiteSettings.telephone %}
+
+    <footer>
+        <div class="footer-wrapper section-bg2" data-background="{% static 'assets/img/gallery/footer_bg.png' %}">
+            <!-- Footer Top-->
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+                                    <div class="footer-tittle">
+                                        <div class="footer-logo mb-20">
+                                            {% with rectangle_logo=settings.base.SiteSettings.rectangle_logo %}
+                                                {% if rectangle_logo %}
+                                                    {% image rectangle_logo max-320x50 %}
+                                                {% endif %}
+                                            {% endwith %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Contact Info</h4>
+                                    <ul>
+                                        <li>
+                                            <p>Address : Kigali Rwanda</p>
+                                        </li>
+                                        <li><a href="tel:{{telephone}}">Phone : {{ telephone }}</a></li>
+                                        <li><a href="mailto:{{email}}">Email : {{ email }}</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Important Link</h4>
+                                    <ul>
+                                        {% get_site_root as site_root %}
+                                        <li>
+                                            <a href="{% pageurl site_root %}">
+                                                {{ site_root.title }}
+
+                                            </a></li> 
+                                        {% for menuitem in site_root.get_children.live.in_menu %}
+                                            <li>
+                                                <a href="{% pageurl menuitem %}">
+                                                    {{ menuitem.title }}
+                                                </a>
+                                            </li>
+                                            
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Newsletter</h4>
+                                    <div class="footer-pera footer-pera2">
+                                        <p>Sign up for our newsletter to stay updated on our latest activities.</p>
+                                    </div>
+                                    <!-- Form -->
+                                    <div class="footer-form">
+                                        <div id="mc_embed_signup">
+                                            <form action="{% url 'api_subscribe' %}" method="post" class="subscribe-form relative ">
+                                                <input type="email" name="email" id="" placeholder="Email Address" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
+                                                <div class="form-icon">
+                                                    <button type="submit" name="submit"  class="email_icon newsletter-submit button-contactForm"><img src="{% static 'assets/img/gallery/form.png' %}" alt=""></button>
+                                                </div>
+                                                <div class="mt-10 info"></div>
+                                                
+                                                {% csrf_token %}
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer-bottom -->
+            <div class="footer-bottom-area">
+                <div class="container">
+                    <div class="footer-border">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="col-xl-10 col-lg-9 ">
+                                <div class="footer-copy-right">
+                                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                        Copyright &copy;<script>
+                                            document.write(new Date().getFullYear());
+                                        </script> All rights reserved | {{ website_name }}
+                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-3">
+                                <div class="footer-social f-right">
+
+                                    {% with facebook=settings.base.SiteSettings.Facebook twitter=settings.base.SiteSettings.Twitter linkedin=settings.base.SiteSettings.Linkedin instagram=settings.base.SiteSettings.Instagram %} 
+
+                                        {% if twitter %}
+                                            
+                                            <a href="{{ twitter }}">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            
+                                        {% endif %}
+                                        
+                                        {% if facebook %}
+                                            
+                                            <a href="{{ facebook }}">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            
+                                        {% endif %}
+                                        
+                                        {% if linkedin %}
+                                            
+                                            <a href="{{ linkedin }}">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                            
+                                        {% endif %}
+                                        
+                                        {% if instagram %}
+                                            
+                                            <a href="{{ instagram }}">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                            
+                                        {% endif %}
+
+                                    {% endwith %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <!-- JS here -->
+{% endwith %}

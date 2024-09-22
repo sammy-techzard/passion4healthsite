@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% load admin_urls %}
+
+{% block object-tools %}
+<div class="object-tools">
+  <ul class="object-tools">
+    {% for obj in cl.result_list %}
+      {% if not obj.responded %}
+      <li>
+        <a href="{% url 'admin:contact_form_response' obj.pk %}">Respond to {{ obj.name }}</a>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
