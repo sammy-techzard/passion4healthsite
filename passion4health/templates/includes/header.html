@@ -2,7 +2,7 @@
 {% load wagtailimages_tags navigation_tags wagtailcore_tags %}
 {% comment %} let's deal with navigation settings {% endcomment %}
 
-{% with website_name=settings.base.SiteSettings.site_name short_name=settings.base.SiteSettings.short_name org_name=settings.base.SiteSettings.org_name email=settings.base.SiteSettings.email telephone=settings.base.SiteSettings.telephone %}
+{% with donate_page=settings.base.SiteSettings.donate_page donate_button_text=settings.base.SiteSettings.donate_button_text website_name=settings.base.SiteSettings.site_name short_name=settings.base.SiteSettings.short_name org_name=settings.base.SiteSettings.org_name email=settings.base.SiteSettings.email telephone=settings.base.SiteSettings.telephone %}
     <header>
         {% wagtailuserbar %}
         <!-- Header Start -->
@@ -122,7 +122,12 @@
                                     </div>
                                     <!-- Header-btn -->
                                     <div class="header-right-btn d-none d-lg-block ml-20">
-                                        <a href="contact.php" class="btn header-btn">Donate</a>
+                                        {% if donate_page %}
+                                            <a href="{{donate_page.url}}" class="btn header-btn">
+                                                {{donate_button_text}}
+                                            </a>
+                                        {% endif %}
+                                        
                                     </div>
                                 </div>
                             </div>

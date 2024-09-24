@@ -115,3 +115,4 @@ class DonationsFundsAndScholars(models.Model):
     class Meta:
         verbose_name = "Donations Funds and Scholars"
         verbose_name_plural = "Donations Funds and Scholars"
+        

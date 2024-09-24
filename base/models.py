@@ -43,6 +43,9 @@ class SiteSettings(BaseGenericSetting):
     icon_logo = models.ForeignKey(
         'wagtailimages.Image', on_delete=models.CASCADE, related_name="+", verbose_name="Icon Logo", null=True, blank=True
     )
+    inverted_rectangle_logo = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name="+", verbose_name="Inverted color Rectangle Logo",null=True, blank=True
+    )
     
     
     # social media
@@ -57,6 +60,24 @@ class SiteSettings(BaseGenericSetting):
     telephone = models.CharField(verbose_name="General Telephone line", blank=True, max_length=13)
     location_address = models.CharField(verbose_name="Loaction of the organization", blank=True, max_length=250)
     street_address = models.CharField(verbose_name="Street address of the organization", blank=True, max_length=250)
+    
+    # Donate Page Settings
+    donate_button_text = models.CharField(
+        max_length=100, 
+        verbose_name="Donate Button Text", 
+        help_text="Text for the donate button", 
+        blank=True, 
+        null=True
+    )
+    donate_page = models.ForeignKey(
+        'DonatePage', 
+        null=True, 
+        blank=True, 
+        on_delete=models.SET_NULL, 
+        related_name='+',
+        verbose_name="Choose the donate page"
+    )
+    
     
     panels = [
         MultiFieldPanel(
@@ -90,10 +111,17 @@ class SiteSettings(BaseGenericSetting):
                 FieldPanel('rectangle_logo'),
                 FieldPanel('square_logo'),
                 FieldPanel('icon_logo'),
+                FieldPanel('inverted_rectangle_logo'),
             ],
             "Logo settings"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("donate_button_text"),
+                FieldPanel("donate_page"),  # Allows selecting the donate page
+            ],
+            "Donate Page Settings",
         )
-        
     ]
     
 # class LogoGalleryImage(Orderable):
@@ -203,3 +231,76 @@ class ContactUs(Page):
     content_panels = Page.content_panels + [
         FieldPanel("hero_block"),
     ]
+    
+class DonatePage(Page):
+    donate_page_title = models.CharField(
+        blank=False,
+        max_length=255,
+        null=True,
+    )
+    donate_message = models.CharField(
+        blank=False,
+        max_length=255,
+        null=True
+    )
+    patternship_image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.PROTECT, related_name="+", verbose_name="Image of patternship", null=True, blank=True
+    )
+    donate_link = models.URLField(
+        blank=False,
+        null=True,
+    )
+    
+    # Reference to the ContactUs page
+    contact_us_page = models.ForeignKey(
+        'ContactUs',  # The model class for the ContactUs page
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name="Contact Us Page"
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("donate_page_title"),
+                FieldPanel("donate_message"),
+                FieldPanel("patternship_image"),
+                FieldPanel("donate_link"),
+                FieldPanel("contact_us_page"),  # Add this panel to your content editor
+            ],
+            heading="This page is a transmission to the actual fund collecting page. So use titles and messages that acknowledge the donor!"
+        ),
+    ]
+class VolunteerJoinPage(Page):
+    volunteer_section_title = models.CharField(
+        max_length=255,
+        blank=False,
+        null=True,
+        help_text="Secondary title for the volunteer page"
+    )
+    volunteership_message = models.TextField(
+        blank=False,
+        null=True,
+        help_text="A short message to attract volunteers"
+    )
+    form_link = models.URLField(
+        blank=False,
+        null=True,
+        help_text="External URL link to the form (e.g. Google Form)"
+    )
+    button_text = models.CharField(
+        max_length=50,
+        blank=False,
+        null=True,
+        help_text="Text displayed on the form link button"
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("volunteer_section_title"),
+        FieldPanel("volunteership_message"),
+        FieldPanel("form_link"),
+        FieldPanel("button_text"),
+    ]
+    

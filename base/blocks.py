@@ -188,8 +188,9 @@ class CallForVolunteerStruct(StructBlock):
         max_num =1
     )
     action_page = PageChooserBlock(
+        target_model='base.VolunteerJoinPage',  # Restrict to VolunteerJoinPage only
         required=True,
-        verbose_name="The page where the volunteers registration form will be!",
+        verbose_name="The page where the volunteer registration form will be",
         max_num=1
     )
     background_image = ImageChooserBlock(

@@ -94,9 +94,13 @@ WSGI_APPLICATION = "passion4health.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'passion4health',     # Replace with your database name
+        'USER': 'root',       # Replace with your database user
+        'PASSWORD': '1234567890',      # Replace with your user's password
+        'HOST': 'localhost',         # Set to 'localhost' or your PostgreSQL server's IP address
+        'PORT': '5432',              # Default PostgreSQL port is 5432
     }
 }
 

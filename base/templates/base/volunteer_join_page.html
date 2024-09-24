@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    {% comment %} {% if page.hero_block %}
+        {{page.hero_block}}
+    {% endif %} {% endcomment %}
+    <style>
+        .volunteer-section {
+            padding: 50px 0;
+        }
+        .volunteer-section .message-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .volunteer-section .image-column {
+            text-align: center;
+        }
+        .volunteer-section .image-column img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .volunteer-section h2 {
+            font-size: 4rem; /* Large font size for the heading */
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .volunteer-section p.lead {
+            font-size: 1.5rem; /* Large font size for the message */
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        .volunteer-section .action-buttons a {
+            margin: 10px;
+        }
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .volunteer-section h2 {
+                font-size: 2.5rem;
+            }
+            .volunteer-section p.lead {
+                font-size: 1.25rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .volunteer-section h2 {
+                font-size: 2rem;
+            }
+            .volunteer-section p.lead {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <section class="contact-section">
+        <div class="container volunteer-section">
+            <div class="row">
+                <!-- Message Column -->
+                <div class="col-md-6 message-column">
+                    <h2 class="font-weight-bold">{{page.volunteer_section_title}}</h2>
+                    <p class="">
+                        {{page.volunteership_message}}
+                    </p>
+                    
+                </div>
+                <!-- Image Column -->
+                <div class="col-md-6 image-column">
+                    <div class="action-buttons">
+                        <a href="{{page.form_link}}" class="btn btn-primary btn-lg">
+                            {{page.button_text}}
+                        </a>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

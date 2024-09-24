@@ -1,6 +1,6 @@
 {% load static wagtailuserbar  %}
 {% load wagtailimages_tags navigation_tags wagtailcore_tags %}
-{% with website_name=settings.base.SiteSettings.site_name short_name=settings.base.SiteSettings.short_name org_name=settings.base.SiteSettings.org_name email=settings.base.SiteSettings.email telephone=settings.base.SiteSettings.telephone %}
+{% with website_name=settings.base.SiteSettings.site_name short_name=settings.base.SiteSettings.short_name org_name=settings.base.SiteSettings.org_name email=settings.base.SiteSettings.email telephone=settings.base.SiteSettings.telephone location_address=settings.base.SiteSettings.location_address%}
 
     <footer>
         <div class="footer-wrapper section-bg2" data-background="{% static 'assets/img/gallery/footer_bg.png' %}">
@@ -13,7 +13,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <div class="footer-tittle">
                                         <div class="footer-logo mb-20">
-                                            {% with rectangle_logo=settings.base.SiteSettings.rectangle_logo %}
+                                            {% with rectangle_logo=settings.base.SiteSettings.inverted_rectangle_logo %}
                                                 {% if rectangle_logo %}
                                                     {% image rectangle_logo max-320x50 %}
                                                 {% endif %}
@@ -29,7 +29,7 @@
                                     <h4>Contact Info</h4>
                                     <ul>
                                         <li>
-                                            <p>Address : Kigali Rwanda</p>
+                                            <p>Address : {{location_address}}</p>
                                         </li>
                                         <li><a href="tel:{{telephone}}">Phone : {{ telephone }}</a></li>
                                         <li><a href="mailto:{{email}}">Email : {{ email }}</a></li>
