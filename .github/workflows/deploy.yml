@@ -20,6 +20,6 @@ jobs:
 
       - name: Deploy to Dokku
         run: |
-          ssh -o StrictHostKeyChecking=no dokku@${{ secrets.DOKKU_HOST }} apps:exists ${{ secrets.DOKKU_APP }} || ssh dokku@${{ secrets.DOKKU_HOST }} apps:create ${{ secrets.DOKKU_APP }}
+          ssh -o StrictHostKeyChecking=no dokku@${{ secrets.DOKKU_HOST }} dokku apps:exists ${{ secrets.DOKKU_APP }} || ssh dokku@${{ secrets.DOKKU_HOST }} dokku apps:create ${{ secrets.DOKKU_APP }}
           git remote add dokku dokku@${{ secrets.DOKKU_HOST }}:${{ secrets.DOKKU_APP }} || true
           git push dokku HEAD:master -f
